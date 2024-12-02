@@ -1,0 +1,16 @@
+## Arquivo para simulações rest da api para o controller do ses
+
+## Endpoint para enviar um e-mail
+POST http://localhost:3000/ses/send HTTP/1.1
+content-type: application/json
+
+{
+  "from": "app@demo.com",
+  "to": ["recipient@demo.com"],
+  "subject": "Teste SES",
+  "message": "Este é um teste de envio de email pelo SES."
+}
+
+## Endpoint para listar os e-mails
+GET http://localhost:3000/ses/list-identities HTTP/1.1
+content-type: application/json

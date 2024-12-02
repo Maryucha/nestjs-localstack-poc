@@ -1,0 +1,42 @@
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    network_mode: host
+    ports:
+      - "4566:4566"  # Porta principal
+      - "4572:4572"  # S3
+    env_file:
+      - ./localstack/.env
+    volumes:
+      - "./localstack:/data"
+      - "./localstack/localstack-setup.sh:/etc/localstack/init/ready.d/script.sh"
+    command: >
+      sh -c "chmod +x /etc/localstack/init/ready.d/script.sh &&
+             /etc/localstack/init/ready.d/script.sh && 
+             localstack start"
+
+  backend:
+   container_name: backend-api
+   network_mode: host
+   build:
+    context: ./backend
+    dockerfile: Dockerfile
+   env_file:
+     - ./backend/.env.dev
+
+  db:
+    image: postgres:latest
+    container_name: postgres-simulated-rds
+    network_mode: host
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password123
+      POSTGRES_DB: simulated_rds
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+  
+volumes:
+  db_data:

@@ -1,0 +1,17 @@
+## Arquivo para simulações rest da api para o controller do s3
+
+## Endpoint para enviar um bucket
+POST http://localhost:3000/s3/create-bucket/mybucket HTTP/1.1
+content-type: application/json
+
+## Endpoint para fazer um upload
+POST http://localhost:3000/s3/upload/mybucket
+Content-Type: multipart/form-data
+
+key=myfile.txt
+file=@/caminho/para/seu/arquivo.txt
+
+
+## Endpoint para listar os e-mails
+GET GET http://localhost:3000/s3/list/mybucket HTTP/1.1
+content-type: application/json
