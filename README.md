@@ -56,6 +56,12 @@ docker-compose up --build
 
 ### Sobre o projeto e seu funcionamento:
 
+#### Estrutura de Módulos
+
+Abaixo está a estrutura dos módulos do projeto NestJS + LocalStack:
+
+![Estrutura de Módulos](./screenshots/modulos.png)
+
 **Módulo de Configuração da AWS**
 
 O projeto inclui um módulo de configuração reutilizável para conectar o NestJS a serviços AWS (ou LocalStack). Ele é configurado no backend e fornece instâncias para:
