@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Poc em nest.js para integração com localstack",
   "author": "Maryucha M.M",
-  "repository": {},
+  "repository": "https://github.com/Maryucha/nestjs-localstack-poc",
   "private": true,
   "license": "MIT",
   "scripts": {
