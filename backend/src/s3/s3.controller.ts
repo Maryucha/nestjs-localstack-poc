@@ -42,11 +42,22 @@ export class S3Controller {
   @UseInterceptors(FileInterceptor('file'))
   public async uploadFile(
     @Param('bucketName') bucketName: string,
-    @Body('key') key: string,
     @UploadedFile() file: Express.Multer.File,
+    @Body('key') key: string,
   ): Promise<string> {
+    console.log(`Recebendo upload para o bucket "${bucketName}"`);
+    console.log(`Arquivo recebido:`, file);
+    console.log(`Key: ${key}`);
+    if (!file || !key) {
+      throw new Error('Arquivo e chave (key) são obrigatórios.');
+    }
+
+    console.log(`Recebendo upload para o bucket "${bucketName}"`);
+    console.log(`Arquivo recebido:`, file);
+    console.log(`Key: ${key}`);
+
     await this.s3Service.uploadFile(bucketName, key, file.buffer);
-    return `Arquivo "${key}" enviado para o bucket "${bucketName}".`;
+    return `Arquivo "${key}" enviado com sucesso para o bucket "${bucketName}".`;
   }
 
   /**

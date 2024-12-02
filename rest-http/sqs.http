@@ -1,14 +1,14 @@
 ## Arquivo para simulações rest da api para o controller do sqs
 
-## Endpoint para enviar uma mensagem
+### Endpoint para enviar uma mensagem
 POST http://localhost:3000/sqs/send HTTP/1.1
-content-type: application/json
+Content-Type: application/json
 
 {
   "queueUrl": "my-app-queue",
   "message": "aaaaaaaaaaaaaaaaaaa"
 }
 
-## Endpoint para listar as mensagens
+### Endpoint para listar as mensagens
+
 GET http://localhost:3000/sqs/receive?queueName=my-app-queue HTTP/1.1
-content-type: application/json

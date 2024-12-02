@@ -1,0 +1,14 @@
+## Arquivo para simulações rest da api para o controller do RDS
+
+### Endpoint para enviar tenant
+POST http://localhost:3000/rds HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Company C",
+  "parent": "Company A"
+}
+
+### Endpoint para listar os tenants
+GET http://localhost:3000/rds HTTP/1.1
+Content-Type: application/json

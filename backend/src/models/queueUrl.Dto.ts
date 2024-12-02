@@ -4,4 +4,5 @@
 export class QueueUrl {
   public endpoint: string = '';
   public useQueueUrlAsEndpoint?: boolean;
+  public forcePathStyle?: boolean;
 }

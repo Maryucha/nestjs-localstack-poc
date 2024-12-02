@@ -1,17 +1,32 @@
 ## Arquivo para simulações rest da api para o controller do s3
 
-## Endpoint para enviar um bucket
-POST http://localhost:3000/s3/create-bucket/mybucket HTTP/1.1
-content-type: application/json
+### Endpoint para enviar um bucket
+POST http://localhost:3000/s3/create-bucket/teste67986c6a HTTP/1.1
+Content-Type: application/json
 
-## Endpoint para fazer um upload
-POST http://localhost:3000/s3/upload/mybucket
-Content-Type: multipart/form-data
+### Endpoint para fazer um upload
 
-key=myfile.txt
-file=@/caminho/para/seu/arquivo.txt
+POST http://localhost:3000/s3/upload/teste67986c6a
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary
+
+------WebKitFormBoundary
+Content-Disposition: form-data; name="key"
+
+example.txt
+------WebKitFormBoundary
+Content-Disposition: form-data; name="file"; filename="example.txt"
+Content-Type: text/plain
+
+<conteúdo do arquivo aqui>
+------WebKitFormBoundary--
+
+##
+curl -X POST http://localhost:3000/s3/upload/joana \
+  -H "Content-Type: multipart/form-data" \
+  -F "key=example.txt" \
+  -F "file=@/home/maryucha/estudos/nestjs-localstack-poc/example.txt"
 
 
-## Endpoint para listar os e-mails
-GET GET http://localhost:3000/s3/list/mybucket HTTP/1.1
-content-type: application/json
+### Endpoint para listar os buckets
+
+GET http://localhost:3000/s3/list/joana HTTP/1.1
