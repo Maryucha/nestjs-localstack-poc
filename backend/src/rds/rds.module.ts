@@ -13,7 +13,7 @@ import { Tenant } from './entities/tenant.entity';
         port: parseInt(process.env.DATABASE_PORT || '5432', 10),
         username: process.env.DATABASE_USER || 'admin',
         password: process.env.DATABASE_PASSWORD || 'password123',
-        database: process.env.DATABASE_NAME || 'simulated_rds',
+        database: process.env.DATABASE_NAME || 'dev_rds',
         schema: process.env.DATABASE_SCHEMA || 'public',
         autoLoadEntities: true,
         synchronize: true,

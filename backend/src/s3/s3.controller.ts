@@ -14,29 +14,32 @@ import { S3Service } from './s3.service';
 export class S3Controller {
   /**
    * Construtor do controller.
-   * @param {S3Service} s3Service - Injeção do serviço do s3.
+   * @param {S3Service} s3Service - Injeção do serviço do S3.
    */
   public constructor(private readonly s3Service: S3Service) {}
 
   /**
    * Endpoint de criação de bucket.
-   * @param {string} bucketName - nome do bucket.
-   * @returns {Promise<string>} - Mensaggem com a criação.
+   * @param {string} bucketName - Nome do bucket.
+   * @returns {Promise<string>} - Mensagem de sucesso.
    */
   @Post('create-bucket/:bucketName')
   public async createBucket(
     @Param('bucketName') bucketName: string,
   ): Promise<string> {
+    if (!bucketName) {
+      throw new Error('O nome do bucket é obrigatório.');
+    }
     await this.s3Service.createBucket(bucketName);
     return `Bucket "${bucketName}" criado com sucesso.`;
   }
 
   /**
    * Endpoint de upload de um arquivo.
-   * @param {string} bucketName - nome do bucket.
-   * @param {string} key - chave na qual o arquivo vai ficar.
-   * @param {Buffer} file - O arquivo que será quardado.
-   * @returns {Promise<string>} - Mensagem retornando o sucesso.
+   * @param {string} bucketName - Nome do bucket.
+   * @param {Express.Multer.File} file - Arquivo a ser enviado.
+   * @param {string} key - Chave para salvar o arquivo.
+   * @returns {Promise<string>} - Mensagem de sucesso.
    */
   @Post('upload/:bucketName')
   @UseInterceptors(FileInterceptor('file'))
@@ -45,25 +48,18 @@ export class S3Controller {
     @UploadedFile() file: Express.Multer.File,
     @Body('key') key: string,
   ): Promise<string> {
-    console.log(`Recebendo upload para o bucket "${bucketName}"`);
-    console.log(`Arquivo recebido:`, file);
-    console.log(`Key: ${key}`);
     if (!file || !key) {
       throw new Error('Arquivo e chave (key) são obrigatórios.');
     }
-
-    console.log(`Recebendo upload para o bucket "${bucketName}"`);
-    console.log(`Arquivo recebido:`, file);
-    console.log(`Key: ${key}`);
 
     await this.s3Service.uploadFile(bucketName, key, file.buffer);
     return `Arquivo "${key}" enviado com sucesso para o bucket "${bucketName}".`;
   }
 
   /**
-   * Endpoint que lista os arquivos em um bucket.
-   * @param {string} bucketName - nome do bucket.
-   * @returns {Promise<string>} - Mensagem retornando o sucesso.
+   * Endpoint para listar arquivos em um bucket.
+   * @param {string} bucketName - Nome do bucket.
+   * @returns {Promise<string[]>} - Lista de arquivos.
    */
   @Get('list/:bucketName')
   public async listFiles(

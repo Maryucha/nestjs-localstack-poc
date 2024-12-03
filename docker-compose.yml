@@ -32,7 +32,7 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: password123
-      POSTGRES_DB: simulated_rds
+      POSTGRES_DB: dev_rds
     ports:
       - "5432:5432"
     volumes:
