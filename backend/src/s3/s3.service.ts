@@ -38,7 +38,6 @@ export class S3Service {
       const input: CreateBucketCommandInput = {
         Bucket: bucketName,
       };
-
       if (this.awsConfigService.region !== 'us-east-1') {
         input.CreateBucketConfiguration = {
           LocationConstraint: this.awsConfigService

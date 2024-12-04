@@ -17,4 +17,10 @@ export class QueueUrl {
    * @type {boolean}
    */
   public forcePathStyle?: boolean;
+
+  /**
+   * Nome da região.
+   * @type {string}
+   */
+  public region?: string;
 }

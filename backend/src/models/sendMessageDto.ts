@@ -6,11 +6,11 @@ export class SendMessageDto {
    * Nome da fila.
    * @type {string}
    */
-  queueName: string;
+  public queueName: string = '';
 
   /**
    * Mensagem a ser enviada.
    * @type {string}
    */
-  message: string;
+  public message: string = '';
 }

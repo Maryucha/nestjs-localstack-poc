@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Tenant } from './entities/tenant.entity';
 import { RdsService } from './rds.service';
-import { CreateTenantDto } from 'models/createTenantDto';
+import { CreateTenantDto } from '../models/createTenantDto';
 
 /**
  * Controlador para gerenciar tenants no RDS.
@@ -12,7 +12,7 @@ export class RdsController {
    * Construtor do controlador RDS.
    * @param {RdsService} rdsService - Serviço RDS injetado.
    */
-  constructor(private readonly rdsService: RdsService) {}
+  public constructor(private readonly rdsService: RdsService) {}
 
   /**
    * Endpoint para criar um novo tenant.
@@ -20,7 +20,7 @@ export class RdsController {
    * @returns {Promise<Tenant>} - Tenant criado.
    */
   @Post()
-  async createTenant(@Body() body: CreateTenantDto): Promise<Tenant> {
+  public async createTenant(@Body() body: CreateTenantDto): Promise<Tenant> {
     return this.rdsService.createTenant(body.name, body.parent);
   }
 
@@ -29,7 +29,7 @@ export class RdsController {
    * @returns {Promise<Tenant[]>} - Lista de tenants.
    */
   @Get()
-  async getAllTenants(): Promise<Tenant[]> {
+  public async getAllTenants(): Promise<Tenant[]> {
     return this.rdsService.findAllTenants();
   }
 }

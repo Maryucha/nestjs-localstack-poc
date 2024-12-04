@@ -40,7 +40,7 @@ export class AwsConfigService {
    * @returns {string} - Account ID.
    */
   public get accountId(): string {
-    return process.env.AWS_ACCOUNT_ID;
+    return process.env.AWS_ACCOUNT_ID || '';
   }
 
   /**
@@ -54,19 +54,19 @@ export class AwsConfigService {
     resourceName: string,
   ): QueueUrl {
     const queueConfig = new QueueUrl();
-
     if (process.env.NODE_ENV === 'dev') {
       queueConfig.endpoint = `http://localhost:4566/000000000000/${resourceName}`;
       queueConfig.useQueueUrlAsEndpoint = true;
       queueConfig.forcePathStyle = true;
+      queueConfig.region = this.region;
     } else {
       queueConfig.endpoint = this.endpoint
         ? `${this.endpoint}/${resourceName}`
         : `https://${serviceName}.${this.region}.amazonaws.com/${this.accountId}/${resourceName}`;
       queueConfig.useQueueUrlAsEndpoint = false;
       queueConfig.forcePathStyle = false;
+      queueConfig.region = this.region;
     }
-
     return queueConfig;
   }
 }

@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { SqsService } from './sqs.service';
-import { SendMessageDto } from 'models/sendMessageDto';
+import { SendMessageDto } from '../models/sendMessageDto';
 
 @Controller('sqs')
 export class SqsController {
@@ -8,7 +8,23 @@ export class SqsController {
    * Construtor do controller SQS.
    * @param {SqsService} sqsService - Serviço SQS injetado.
    */
-  constructor(private readonly sqsService: SqsService) {}
+  public constructor(private readonly sqsService: SqsService) {}
+
+  /**
+   * Endpoint para criar uma fila no SQS.
+   * @param {string} queueName - Nome da fila.
+   * @returns {Promise<string>} - Mensagem de sucesso.
+   */
+  @Post('create')
+  public async createQueue(
+    @Body('queueName') queueName: string,
+  ): Promise<string> {
+    if (!queueName) {
+      throw new Error('O parâmetro "queueName" é obrigatório.');
+    }
+    await this.sqsService.createQueue(queueName);
+    return `Fila "${queueName}" criada com sucesso!`;
+  }
 
   /**
    * Endpoint para enviar uma mensagem a uma fila SQS.
@@ -16,7 +32,7 @@ export class SqsController {
    * @returns {Promise<string>} - Confirmação de envio.
    */
   @Post('send')
-  async sendMessage(@Body() body: SendMessageDto): Promise<string> {
+  public async sendMessage(@Body() body: SendMessageDto): Promise<string> {
     await this.sqsService.sendMessage(body.queueName, body.message);
     return 'Mensagem enviada com sucesso!';
   }
@@ -27,7 +43,9 @@ export class SqsController {
    * @returns {Promise<any[]>} - Lista de mensagens recebidas.
    */
   @Get('receive')
-  async receiveMessages(@Query('queueName') queueName: string): Promise<any[]> {
+  public async receiveMessages(
+    @Query('queueName') queueName: string,
+  ): Promise<any[]> {
     if (!queueName) {
       throw new Error('O parâmetro "queueName" é obrigatório.');
     }
