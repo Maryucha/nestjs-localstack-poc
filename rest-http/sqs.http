@@ -5,7 +5,7 @@ POST http://localhost:3000/sqs/create HTTP/1.1
 Content-Type: application/json
 
 {
-  "queueName": "mariani5"
+  "queueName": "create-tenant"
 }
 
 ### Endpoint para enviar uma mensagem
@@ -13,10 +13,10 @@ POST http://localhost:3000/sqs/send HTTP/1.1
 Content-Type: application/json
 
 {
-  "queueName": "mariani5",
-  "message": "ddddddddddddddddddddd"
+  "queueName": "create-tenant",
+  "message": "ddddsssssssssssssssdddd"
 }
 
 ### Endpoint para listar as mensagens
 
-GET http://localhost:3000/sqs/receive?queueName=mariani5 HTTP/1.1
+GET http://localhost:3000/sqs/receive?queueName=create-tenant HTTP/1.1

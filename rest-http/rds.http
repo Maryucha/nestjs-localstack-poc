@@ -5,8 +5,7 @@ POST http://localhost:3000/rds HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Company D",
-  "parent": "Company A"
+  "name": "Company E"
 }
 
 ### Endpoint para listar os tenants
