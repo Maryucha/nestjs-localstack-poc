@@ -5,7 +5,6 @@ import {
   SESClient,
 } from '@aws-sdk/client-ses';
 import { AwsConfigService } from '../aws-config/aws-config-service';
-import { QueueUrl } from '../models/queueUrl.Dto';
 
 /**
  * Serviço para gerenciar operações do SES.
@@ -22,11 +21,6 @@ export class SesService {
     // Garantir que o endpoint e a região estejam definidos corretamente
     const endpoint = this.awsConfigService.endpoint || 'http://localhost:4566';
     const region = this.awsConfigService.region;
-
-    console.log('Inicializando cliente SQS...');
-    console.log(`Região configurada: ${region}`);
-    console.log(`Endpoint configurado: ${endpoint}`);
-
     this.sesClient = new SESClient({
       region: region,
       credentials: {
@@ -35,17 +29,6 @@ export class SesService {
       },
       endpoint: endpoint,
     });
-  }
-
-  /**
-   * Obtém a configuração da fila.
-   * @param {string} queueName - Nome da fila.
-   * @returns {QueueUrl} - Configuração da fila.
-   */
-  private getQueueConfig(queueName: string): QueueUrl {
-    const config = this.awsConfigService.getQueueUrlConfig('sqs', queueName);
-    console.log(`Configurações obtidas para a fila: ${JSON.stringify(config)}`);
-    return config;
   }
 
   /**

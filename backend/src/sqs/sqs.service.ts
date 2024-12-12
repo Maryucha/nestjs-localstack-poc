@@ -21,11 +21,6 @@ export class SqsService {
     // Garantir que o endpoint e a região estejam definidos corretamente
     const endpoint = this.awsConfigService.endpoint || 'http://localhost:4566';
     const region = this.awsConfigService.region;
-
-    console.log('Inicializando cliente SQS...');
-    console.log(`Região configurada: ${region}`);
-    console.log(`Endpoint configurado: ${endpoint}`);
-
     this.sqsClient = new SQSClient({
       region: region,
       credentials: {
