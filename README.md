@@ -11,6 +11,11 @@ A PoC abrange a configuração de serviços AWS essenciais, como **S3, SQS e SES
 
 ---
 
+### Endereços: 
+
+[`LOCALSTAK`](https://app.localstack.cloud/inst/default/status)
+---
+
 ### Estrtutura
 ```bash
 /backend                # Código-fonte do backend NestJS
